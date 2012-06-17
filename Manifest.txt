@@ -1,0 +1,7 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/launchpad
+lib/launchpad.rb
+test/test_launchpad.rb
