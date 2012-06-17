@@ -52,6 +52,10 @@ module Launchpad
         @defines << "HW_UART"
       end
 
+      def have_crystal!
+        @defines << "HAVE_CRYSTAL"
+      end
+
       def obj
         src.ext('o').pathmap("build/%f")
       end
@@ -120,6 +124,10 @@ module Launchpad
 
     def hardware_uart!
       E.hardware_uart!
+    end
+
+    def have_crystal!
+      E.have_crystal!
     end
 
     Dir['src/*.c'].each do |f|

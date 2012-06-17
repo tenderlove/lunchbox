@@ -27,10 +27,19 @@ void portInit(received_byte func)
 #ifdef HW_UART
   P1SEL = BIT1 + BIT2 ;                     // P1.1 = RXD, P1.2=TXD
   P1SEL2 = BIT1 + BIT2 ;                     // P1.1 = RXD, P1.2=TXD
+
+#ifdef HAVE_CRYSTAL
+  UCA0CTL1 |= UCSSEL_1;                     // CLK = ACLK
+  UCA0BR0 = 0x03;                           // 32kHz/9600 = 3.41
+  UCA0BR1 = 0x00;                           //
+  UCA0MCTL = UCBRS1 + UCBRS0;               // Modulation UCBRSx = 3
+#else
   UCA0CTL1 |= UCSSEL_2;                     // SMCLK
   UCA0BR0 = 104;                            // 1MHz 9600
   UCA0BR1 = 0;                              // 1MHz 9600
   UCA0MCTL = UCBRS0;                        // Modulation UCBRSx = 1
+#endif
+
   UCA0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
   IE2 |= UCA0RXIE;                          // Enable USCI_A0 RX interrupt
 #else
