@@ -130,6 +130,15 @@ module Launchpad
       E.have_crystal!
     end
 
+    def autodetect!
+      i = File.readlines('src/main.c').grep(/\A#include <([^>]*)\.h>/) { |inc|
+        $1
+      }
+      (%w{ launchpad port dht } & i).each do |lib|
+        use lib
+      end
+    end
+
     Dir['src/*.c'].each do |f|
       E.add_src f
     end
