@@ -8,7 +8,7 @@ module Launchpad
     class Environment
       include Rake::DSL
 
-      attr_accessor :cpu, :cc, :cxx, :objdump, :size, :mspdebug
+      attr_accessor :cpu, :cc, :cxx, :objdump, :size, :mspdebug, :src
 
       C_DIR = File.expand_path File.join(File.dirname(__FILE__), '..', 'native')
       C_SRC = File.join C_DIR, 'src'
@@ -22,6 +22,7 @@ module Launchpad
         @size     = 'msp430-size'
         @mspdebug = 'mspdebug'
         @src      = Rake::FileList.new
+        @defines  = []
 
         define_tasks
       end
@@ -47,8 +48,8 @@ module Launchpad
         t.prerequisites.uniq!
       end
 
-      def src
-        @src
+      def hardware_uart!
+        @defines << "HW_UART"
       end
 
       def obj
@@ -61,7 +62,8 @@ module Launchpad
 
       def cflags
         incs = includes.map { |i| "-I#{i}" }.join ' '
-        incs + " -Os -Wall -g -mmcu=#{E.cpu}"
+        defines = @defines.map { |i| "-D#{i}" }.join ' '
+        [incs, defines, "-Os -Wall -g -mmcu=#{E.cpu}"].join ' '
       end
 
       private
@@ -104,16 +106,20 @@ module Launchpad
 
     E = Environment.new
 
-    def xx
-      E.src
-    end
-
     def cpu cpu
       E.cpu = cpu
     end
 
     def use lib
       E.add_lib lib
+
+      if lib == 'port' && E.cpu =~ /3$/
+        hardware_uart!
+      end
+    end
+
+    def hardware_uart!
+      E.hardware_uart!
     end
 
     Dir['src/*.c'].each do |f|

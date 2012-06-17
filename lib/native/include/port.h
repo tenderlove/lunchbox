@@ -3,7 +3,7 @@
 
 #include <launchpad.h>
 
-void portInit(void);
+void portInit(void (*proc)(unsigned char byte));
 void portTx(unsigned char byte);
 
 #endif

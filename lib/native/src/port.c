@@ -1,5 +1,6 @@
 #include <port.h>
 
+#ifndef HW_UART
 //------------------------------------------------------------------------------
 // Hardware-related definitions
 //------------------------------------------------------------------------------
@@ -17,17 +18,26 @@
 //------------------------------------------------------------------------------
 unsigned int txData;                        // UART internal variable for TX
 unsigned char rxBuffer;                     // Received UART character
+#endif
 
-//------------------------------------------------------------------------------
-// Function configures Timer_A for full-duplex UART operation
-//------------------------------------------------------------------------------
-void portInit(void)
+void portInit(void (*proc)(unsigned char byte))
 {
+#ifdef HW_UART
+  P1SEL = BIT1 + BIT2 ;                     // P1.1 = RXD, P1.2=TXD
+  P1SEL2 = BIT1 + BIT2 ;                     // P1.1 = RXD, P1.2=TXD
+  UCA0CTL1 |= UCSSEL_2;                     // SMCLK
+  UCA0BR0 = 104;                            // 1MHz 9600
+  UCA0BR1 = 0;                              // 1MHz 9600
+  UCA0MCTL = UCBRS0;                        // Modulation UCBRSx = 1
+  UCA0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
+  IE2 |= UCA0RXIE;                          // Enable USCI_A0 RX interrupt
+#else
   P1SEL = UART_TXD + UART_RXD;            // Timer function for TXD/RXD pins
   P1DIR |= ~UART_RXD;               // Set all pins but RXD to output
   TACCTL0 = OUT;                          // Set TXD Idle as Mark = '1'
   TACCTL1 = SCS + CM1 + CAP + CCIE;       // Sync, Neg Edge, Capture, Int
   TACTL = TASSEL_2 + MC_2;                // SMCLK, start in continuous mode
+#endif
 }
 
 //------------------------------------------------------------------------------
@@ -35,6 +45,9 @@ void portInit(void)
 //------------------------------------------------------------------------------
 void portTx(unsigned char byte)
 {
+#ifdef HW_UART
+    UCA0TXBUF = byte;
+#else
     while (TACCTL0 & CCIE);                 // Ensure last char got TX'd
     TACCR0 = TAR;                           // Current state of TA counter
     TACCR0 += UART_TBIT;                    // One bit time till first bit
@@ -42,12 +55,15 @@ void portTx(unsigned char byte)
     txData = byte;                          // Load global variable
     txData |= 0x100;                        // Add mark stop bit to TXData
     txData <<= 1;                           // Add space start bit
+#endif
 }
 
+#ifndef HW_UART
 //------------------------------------------------------------------------------
 // Timer_A UART - Transmit Interrupt Handler
 //------------------------------------------------------------------------------
-interrupt(TIMERA0_VECTOR) Timer_A0_ISR(void)
+__attribute__ ((__interrupt__(TIMERA0_VECTOR)))
+void Timer_A0_ISR(void)
 {
   static unsigned char txBitCnt = 10;
 
@@ -67,3 +83,4 @@ interrupt(TIMERA0_VECTOR) Timer_A0_ISR(void)
     txBitCnt--;
   }
 }
+#endif

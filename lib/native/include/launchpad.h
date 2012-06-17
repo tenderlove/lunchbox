@@ -2,7 +2,6 @@
 #define _LAUNCHPAD
 
 #include <msp430.h>
-#include <signal.h>
 
 #define pinBit(pin) (0x01 << (pin - 10))
 
