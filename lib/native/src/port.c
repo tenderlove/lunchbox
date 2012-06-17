@@ -59,6 +59,7 @@ void portInit(received_byte func)
 void portTx(unsigned char byte)
 {
 #ifdef HW_UART
+    while (!(IFG2&UCA0TXIFG));
     UCA0TXBUF = byte;
 #else
     while (TACCTL0 & CCIE);                 // Ensure last char got TX'd
