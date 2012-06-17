@@ -20,7 +20,9 @@ unsigned int txData;                        // UART internal variable for TX
 unsigned char rxBuffer;                     // Received UART character
 #endif
 
-void portInit(void (*proc)(unsigned char byte))
+received_byte callback;
+
+void portInit(received_byte func)
 {
 #ifdef HW_UART
   P1SEL = BIT1 + BIT2 ;                     // P1.1 = RXD, P1.2=TXD
@@ -38,6 +40,8 @@ void portInit(void (*proc)(unsigned char byte))
   TACCTL1 = SCS + CM1 + CAP + CCIE;       // Sync, Neg Edge, Capture, Int
   TACTL = TASSEL_2 + MC_2;                // SMCLK, start in continuous mode
 #endif
+
+  callback = func;
 }
 
 //------------------------------------------------------------------------------
@@ -58,7 +62,15 @@ void portTx(unsigned char byte)
 #endif
 }
 
-#ifndef HW_UART
+#ifdef HW_UART
+__attribute__ ((__interrupt__(USCIAB0RX_VECTOR)))
+void USCI0RX_ISR(void)
+{
+  while (!(IFG2&UCA0TXIFG));                 // USCI_A0 TX buffer ready?
+  if (callback)
+    callback((unsigned char)UCA0RXBUF);
+}
+#else
 //------------------------------------------------------------------------------
 // Timer_A UART - Transmit Interrupt Handler
 //------------------------------------------------------------------------------
