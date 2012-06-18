@@ -1,14 +1,14 @@
-= launchpad
+# launchpad
 
 * http://github/com/tenderlove/launchpad
 
-== DESCRIPTION:
+## DESCRIPTION:
 
 A gem to help you get started with development on the TI Launchpad.  This gem
 contains a set of rake tasks to help you compile and install code on to your
 launchpad, and also contains libraries to help make development a bit easier.
 
-== FEATURES/PROBLEMS:
+## FEATURES/PROBLEMS:
 
 * Contains rake tasks to simplify compilation and installation of msp430
   launchpad programs.
@@ -19,33 +19,33 @@ launchpad, and also contains libraries to help make development a bit easier.
 
 * Includes libraries for interfacing with RHT03 temperature sensors.
 
-== SYNOPSIS:
+## SYNOPSIS:
 
 First install the [dev tools and usb driver for the
 launchpad](http://code.google.com/p/osx-launchpad/downloads/list).  Then
 install this gem:
 
-  $ gem install launchpad
+    $ gem install launchpad
 
 Generate a new project and install the sample program:
 
-  $ launchpad my_project
-  $ cd my_project
-  $ rake install
+    $ launchpad my_project
+    $ cd my_project
+    $ rake install
 
 You should see the LEDs on your launchpad oscillate between red and green.
 
-== REQUIREMENTS:
+## REQUIREMENTS:
 
 * Ruby
 * [Launchpad dev kit](http://code.google.com/p/osx-launchpad/downloads/list)
 
-== INSTALL:
+## INSTALL:
 
 * gem install launchpad
 * Install the [launchpad dev kit](http://code.google.com/p/osx-launchpad/downloads/list)
 
-== LICENSE:
+## LICENSE:
 
 (The MIT License)
 

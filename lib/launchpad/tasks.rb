@@ -10,7 +10,7 @@ module Launchpad
 
       attr_accessor :cpu, :cc, :cxx, :objdump, :size, :mspdebug, :src
 
-      C_DIR = File.expand_path File.join(File.dirname(__FILE__), '..', 'native')
+      C_DIR = File.expand_path File.join(File.dirname(__FILE__), 'native')
       C_SRC = File.join C_DIR, 'src'
       C_INC = File.join C_DIR, 'include'
 

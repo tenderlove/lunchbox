@@ -1,5 +1,5 @@
 if $0 =~ /rake/
-  require 'tasks/launchpad'
+  require 'launchpad/tasks'
 end
 
 module Launchpad

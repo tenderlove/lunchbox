@@ -20,9 +20,9 @@ this:
 ```
 $ rake compile
 mkdir -p build
-msp430-gcc -I. -I/Users/aaron/.local/lib/ruby/gems/2.0.0/gems/launchpad-1.0.0/lib/native/include  -Os -Wall -g -mmcu=msp430g2553 -c -o build/main.o src/main.c
-msp430-gcc -I. -I/Users/aaron/.local/lib/ruby/gems/2.0.0/gems/launchpad-1.0.0/lib/native/include  -Os -Wall -g -mmcu=msp430g2553 -c -o build/launchpad.o /Users/aaron/.local/lib/ruby/gems/2.0.0/gems/launchpad-1.0.0/lib/native/src/launchpad.c
-msp430-gcc -I. -I/Users/aaron/.local/lib/ruby/gems/2.0.0/gems/launchpad-1.0.0/lib/native/include  -Os -Wall -g -mmcu=msp430g2553 -o build/main.elf build/main.o build/launchpad.o
+msp430-gcc -I. -I/Users/aaron/git/launchpad/lib/launchpad/native/include  -Os -Wall -g -mmcu=msp430g2553 -c -o build/main.o src/main.c
+msp430-gcc -I. -I/Users/aaron/git/launchpad/lib/launchpad/native/include  -Os -Wall -g -mmcu=msp430g2553 -c -o build/launchpad.o /Users/aaron/git/launchpad/lib/launchpad/native/src/launchpad.c
+msp430-gcc -I. -I/Users/aaron/git/launchpad/lib/launchpad/native/include  -Os -Wall -g -mmcu=msp430g2553 -o build/main.elf build/main.o build/launchpad.o
 msp430-objdump -DS build/main.elf >build/main.lst
 ```
 
