@@ -18,12 +18,47 @@ To compile your project, run `rake compile`.  You should see something like
 this:
 
 ```
+$ rake compile
+mkdir -p build
+msp430-gcc -I. -I/Users/aaron/.local/lib/ruby/gems/2.0.0/gems/launchpad-1.0.0/lib/native/include  -Os -Wall -g -mmcu=msp430g2553 -c -o build/main.o src/main.c
+msp430-gcc -I. -I/Users/aaron/.local/lib/ruby/gems/2.0.0/gems/launchpad-1.0.0/lib/native/include  -Os -Wall -g -mmcu=msp430g2553 -c -o build/launchpad.o /Users/aaron/.local/lib/ruby/gems/2.0.0/gems/launchpad-1.0.0/lib/native/src/launchpad.c
+msp430-gcc -I. -I/Users/aaron/.local/lib/ruby/gems/2.0.0/gems/launchpad-1.0.0/lib/native/include  -Os -Wall -g -mmcu=msp430g2553 -o build/main.elf build/main.o build/launchpad.o
+msp430-objdump -DS build/main.elf >build/main.lst
 ```
 
 To compile and install your project, run `rake install`.  You should see
 something like this:
 
 ```
+$ rake install
+mspdebug rf2500 "prog build/main.elf"
+MSPDebug version 0.17 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2011 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 002
+Initializing FET...
+FET protocol version is 30394216
+Configured for Spy-Bi-Wire
+Set Vcc: 3000 mV
+fet: FET returned error code 4 (Could not find device (or device not supported))
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Configured for Spy-Bi-Wire
+Sending reset...
+Set Vcc: 3000 mV
+Device ID: 0x2553
+Device: MSP430G2553
+Code memory starts at 0xc000
+Number of breakpoints: 1
+Erasing...
+Programming...
+Writing  170 bytes to c000...
+Writing   32 bytes to ffe0...
 ```
 
 Make sure your MSP430 is plugged in to your laptop, otherwise you cannot
