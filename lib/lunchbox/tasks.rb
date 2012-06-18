@@ -131,8 +131,10 @@ module Lunchbox
     end
 
     def autodetect!
-      i = File.readlines('src/main.c').grep(/\A#include <([^>]*)\.h>/) { |inc|
-        $1
+      re = /\A#include <(lunchbox|lunchbox\/([^>]*))\.h>/
+
+      i = File.readlines('src/main.c').grep(re) { |inc|
+        $2 || $1
       }
       (%w{ lunchbox port dht } & i).each do |lib|
         use lib

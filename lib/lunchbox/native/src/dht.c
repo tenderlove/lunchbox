@@ -1,4 +1,4 @@
-#include <dht.h>
+#include <lunchbox/dht.h>
 
 #define DHT_INPUT(bit) P1DIR &= ~(bit)
 #define DHT_OUTPUT(bit) P1DIR |= bit
