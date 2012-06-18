@@ -1,6 +1,6 @@
 # lunchbox
 
-* http://github/com/tenderlove/lunchbox
+* http://github.com/tenderlove/lunchbox
 
 ## DESCRIPTION:
 
