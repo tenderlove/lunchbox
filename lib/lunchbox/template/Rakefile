@@ -1,6 +1,6 @@
-require 'launchpad'
+require 'lunchbox'
 
-include Launchpad::Tasks
+include Lunchbox::Tasks
 
 # Uncomment this if you have the msp430g2553 chip
 cpu 'msp430g2553'

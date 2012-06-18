@@ -1,4 +1,4 @@
-#include <launchpad.h>
+#include <lunchbox.h>
 
 #define LED1 10 // LED1 is on P1.0
 #define LED2 16 // LED2 is on P1.6

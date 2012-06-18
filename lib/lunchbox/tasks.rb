@@ -1,7 +1,7 @@
 require 'rake/clean'
 require 'rake'
 
-module Launchpad
+module Lunchbox
   module Tasks
     CLEAN.include 'build'
 
@@ -134,7 +134,7 @@ module Launchpad
       i = File.readlines('src/main.c').grep(/\A#include <([^>]*)\.h>/) { |inc|
         $1
       }
-      (%w{ launchpad port dht } & i).each do |lib|
+      (%w{ lunchbox port dht } & i).each do |lib|
         use lib
       end
     end

@@ -1,7 +1,7 @@
 #ifndef _PORT
 #define _PORT
 
-#include <launchpad.h>
+#include <lunchbox.h>
 
 typedef void(*received_byte)(unsigned char byte);
 

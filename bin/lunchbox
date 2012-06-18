@@ -6,7 +6,7 @@ dir = ARGV[0]
 
 abort "#{dir} already exists!" if File.exists?(dir)
 
-base_dir = File.expand_path File.join File.dirname(__FILE__), '..', 'lib', 'launchpad', 'template'
+base_dir = File.expand_path File.join File.dirname(__FILE__), '..', 'lib', 'lunchbox', 'template'
 
 file File.join(dir, 'Rakefile') => dir do |t|
   cp File.join(base_dir, 'Rakefile'), t.name

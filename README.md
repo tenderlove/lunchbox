@@ -1,6 +1,6 @@
-# launchpad
+# lunchbox
 
-* http://github/com/tenderlove/launchpad
+* http://github/com/tenderlove/lunchbox
 
 ## DESCRIPTION:
 
@@ -25,11 +25,11 @@ First install the [dev tools and usb driver for the
 launchpad](http://code.google.com/p/osx-launchpad/downloads/list).  Then
 install this gem:
 
-    $ gem install launchpad
+    $ gem install lunchbox
 
 Generate a new project and install the sample program:
 
-    $ launchpad my_project
+    $ lunchbox my_project
     $ cd my_project
     $ rake install
 
@@ -42,7 +42,7 @@ You should see the LEDs on your launchpad oscillate between red and green.
 
 ## INSTALL:
 
-* gem install launchpad
+* gem install lunchbox
 * Install the [launchpad dev kit](http://code.google.com/p/osx-launchpad/downloads/list)
 
 ## LICENSE:

@@ -1,7 +1,7 @@
 #ifndef _DHT
 #define _DHT
 
-#include <launchpad.h>
+#include <lunchbox.h>
 
 typedef enum
 {

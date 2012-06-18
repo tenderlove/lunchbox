@@ -1,7 +1,7 @@
 if $0 =~ /rake/
-  require 'launchpad/tasks'
+  require 'lunchbox/tasks'
 end
 
-module Launchpad
+module Lunchbox
   VERSION = '1.0.0'
 end
