@@ -1,0 +1,17 @@
+require 'launchpad'
+
+include Launchpad::Tasks
+
+# Uncomment this if you have the msp430g2553 chip
+cpu 'msp430g2553'
+
+# Set our CPU to the msp430g2231
+# Uncomment this if you have the msp430g2231 chip
+#cpu 'msp430g2231'
+
+# Autodetect libraries used
+autodetect!
+
+# Uncomment this if you have installed the crystal
+#have_crystal!
+

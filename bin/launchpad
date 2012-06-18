@@ -1,3 +1,38 @@
 #!/usr/bin/env ruby
 
-abort "you need to write me"
+require 'rake'
+
+dir = ARGV[0]
+
+abort "#{dir} already exists!" if File.exists?(dir)
+
+base_dir = File.expand_path File.join File.dirname(__FILE__), '..', 'lib', 'launchpad', 'template'
+
+file File.join(dir, 'Rakefile') => dir do |t|
+  cp File.join(base_dir, 'Rakefile'), t.name
+end
+
+file File.join(dir, '.gitignore') => dir do |t|
+  cp File.join(base_dir, 'gitignore'), t.name
+end
+
+file File.join(dir, 'README.md') => dir do |t|
+  cp File.join(base_dir, 'README.md'), t.name
+end
+
+file File.join(dir, 'src', 'main.c') => File.join(dir, 'src') do |t|
+  cp File.join(base_dir, 'src', 'main.c'), t.name
+end
+
+directory dir
+directory File.join(dir, 'src')
+
+files = [
+  File.join(dir, 'Rakefile'),
+  File.join(dir, 'README.md'),
+  File.join(dir, '.gitignore'),
+  File.join(dir, 'src', 'main.c')
+]
+
+task :default => files
+Rake.application[:default].invoke
