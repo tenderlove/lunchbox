@@ -32,7 +32,7 @@ void startPulse(dht * ctx) {
   digitalWrite(ctx->pin, LOW); /* send start. */
   delayMicroseconds(1100);
   digitalWrite(ctx->pin, HIGH);
-  delayMicroseconds(30);
+  delayMicroseconds(20);
 }
 
 DHT_ERROR_t findAck(dht * ctx) {
